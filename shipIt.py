@@ -42,7 +42,7 @@ except ConfigParser.Error as e:
 
 # default options
 options = {
-	"autodownload": True,
+	"autodownload": False,
 	"target": [],
 	"exclude": [],
 	"include": [],

@@ -2,7 +2,7 @@
 A Python script for easily making distributables of your love 2d game.
 
 ## Documentation
-I included an example .cfg from the game I'm currently working on, SudoHack (and the matching and very useful changeLoveIcon.exe + Source) and I think that reading the source code is a lot shorter and easier to understand than this documentation. Linux and Mac targets are not yet implementd, though I presume that .love files will be sufficient for Linux targets.
+I included an example .cfg from the game I'm currently working on, SudoHack (and the matching and very useful changeLoveIcon.exe + Source (attention, bad!)) and I think that reading the source code is a lot shorter and easier to understand than this documentation. Linux and Mac targets are not yet implementd, though I presume that .love files will be sufficient for Linux targets.
 
 The "Global" section of a configuration file will always be parsed. Otherwise sections of a configuration file will be matched against Python's platform.platform() in ascending order of matching characters from the start, so more specific sections will be parsed later. Global is always parsed first, so options can conveniently be overriden.
 

@@ -20,7 +20,7 @@ This determines the name of the built files. If this is not set it is the name o
 #### verbose
 If this is true, shipIt will out all current options, all files to be packed into the .love and all files to be packed in to the final archives. Default ist false.
 #### add-to-archive
-These files (separated by ";" again) will be included in the final archives alongside the built binary, the necessary .dlls, etc.
+These files (separated by ";" again) will be included in the root of the final archives alongside the built binary, the necessary .dlls, etc.
 
 #### directory
 The directory of your project's files (source, assets, etc.). This is the directory most files you specify will be relatively specified to (If not said otherwise). If this not specified the path shipIt is executed in will implicitely be "directory".

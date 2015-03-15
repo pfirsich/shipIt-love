@@ -182,7 +182,7 @@ for target in options["target"]:
 			for file in filter(lambda file: file not in options["love-exclude"], os.listdir(loveTargetDir)):
 				archiveFiles[os.path.join(loveTargetDir, file)] = file
 			for file in options["add-to-archive"]:
-				archiveFiles[os.path.join(options["directory"], file)] = file
+				archiveFiles[os.path.join(options["directory"], file)] = os.path.split(file)[-1]
 
 			if options["verbose"]:
 				print "(verbose) Archive files:"

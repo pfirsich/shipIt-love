@@ -162,11 +162,18 @@ for target in options["target"]:
 		if options.get("lovedir") is None:
 			print "The love directory has to be set. Skipping target '" + target + "'."
 			continue
+			
+		buildArchive = False if target.endswith("-noarchive") else False
+		target = target[:-len("-noarchive")]
 
 		loveTarget = "-".join(["love", options["version"], target])
 		loveTargetDir = os.path.join(options["lovedir"], loveTarget)
 		if os.path.isdir(loveTargetDir) and os.path.isfile(os.path.join(loveTargetDir, "love.exe")):
-			outFilename = os.path.join(tempDir, options["name"] + "-" + target + ".exe")
+			if buildArchive:
+				outFilename = os.path.join(tempDir, options["name"] + "-" + target + ".exe")
+			else:
+				outFilename = options["name"] + "-" + target + ".exe"
+				
 			print "Writing '" + outFilename + "'..."
 			with open(outFilename, "wb") as fused, open(os.path.join(loveTargetDir, "love.exe"), "rb") as loveExe, open(lovePath, "rb") as loveZip:
 				fused.write(loveExe.read())
@@ -177,24 +184,25 @@ for target in options["target"]:
 				print "Executing '" + cmd + "'..."
 				os.system(cmd)
 
-			print "Compiling archive..."
-			archiveFiles = {outFilename: os.path.basename(outFilename)}
-			for file in filter(lambda file: file not in options["love-exclude"], os.listdir(loveTargetDir)):
-				archiveFiles[os.path.join(loveTargetDir, file)] = file
-			for file in options["add-to-archive"]:
-				archiveFiles[os.path.join(options["directory"], file)] = os.path.split(file)[-1]
+			if buildArchive:
+				print "Compiling archive..."
+				archiveFiles = {outFilename: os.path.basename(outFilename)}
+				for file in filter(lambda file: file not in options["love-exclude"], os.listdir(loveTargetDir)):
+					archiveFiles[os.path.join(loveTargetDir, file)] = file
+				for file in options["add-to-archive"]:
+					archiveFiles[os.path.join(options["directory"], file)] = os.path.split(file)[-1]
 
-			if options["verbose"]:
-				print "(verbose) Archive files:"
-				for file in archiveFiles:
-					try:
-						print file + " to " + archiveFiles[file]
-					except TypeError:
-						print file
-				print ""
+				if options["verbose"]:
+					print "(verbose) Archive files:"
+					for file in archiveFiles:
+						try:
+							print file + " to " + archiveFiles[file]
+						except TypeError:
+							print file
+					print ""
 
-			targetArchive = os.path.join(".", options["name"] + "-" + target + ".zip")
-			zipArchive(targetArchive, archiveFiles)
+				targetArchive = os.path.join(".", options["name"] + "-" + target + ".zip")
+				zipArchive(targetArchive, archiveFiles)
 		else:
 			if options["autodownload"] == False:
 				sys.exit("Love binaries for target '" + loveTarget + "' could not be found in '" + loveTargetDir + "'.")

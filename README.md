@@ -30,7 +30,7 @@ Inside it there should be directories for different versions and targets: e.g. l
 #### autodownload
 If this is set to true, shipIt will not download the respective love binaries, but throw an error if they are not already present. Auto downloading is not yet implemented though. Default will be true.
 #### target
-Which love binaries to build (separated by ';'). The .love file will always be build. Other options are: win32, win64 (More following?). Default is none.
+Which love binaries to build (separated by ';'). The .love file will always be build. Other options are: win32, win64 and win32, win64, which will only build the .exe without archiving it with all necessary .dlls into an archive. (More following?). Default is none.
 #### target-directory (mandatory)
 In this directory the .love files and archives for the full binary packages will be placed. Also temporary files will be created in it (in the ./temp-subfolder).
 #### love-exclude

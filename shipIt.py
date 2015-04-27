@@ -163,8 +163,11 @@ for target in options["target"]:
 			print "The love directory has to be set. Skipping target '" + target + "'."
 			continue
 			
-		buildArchive = False if target.endswith("-noarchive") else False
-		target = target[:-len("-noarchive")]
+		if target.endswith("-noarchive"):
+			buildArchive = False
+			target = target[:-len("-noarchive")]
+		else:
+			buildArchive = True
 
 		loveTarget = "-".join(["love", options["version"], target])
 		loveTargetDir = os.path.join(options["lovedir"], loveTarget)
